@@ -2,6 +2,20 @@ import { ArrowUpRight } from "lucide-react"
 
 const projects = [
   {
+    title: "Product Intelligence Platform",
+    description: "Event-driven analytics platform with Redis Streams ingestion, PostgreSQL real-time metrics, and Gemini-powered product insights dashboard.",
+    tags: ["Express", "React", "PostgreSQL", "Redis", "AWS EC2", "Docker", "Gemini API"],
+    year: "Jan 2026",
+    link: "https://pip.code-across.com/"
+  },
+  {
+    title: "Careers Page Builder",
+    description: "Full-stack no-code careers page builder with modular React rendering, dynamic MongoDB-backed sections, and real-time recruiter editing/publishing.",
+    tags: ["MongoDB", "Express", "React", "Node.js", "Render", "Vercel"],
+    year: "Feb 2026",
+    link: "https://white-carrot-test-57vh.vercel.app/"
+  },
+  {
     title: "Bhomio",
     description: "React Native app for Itinerary Planning and Management + tour guide booking + Hotel and flight booking along with entire CMS panel.",
     tags: ["React Native", "Javascript", "Express", "MySQL"],
@@ -29,6 +43,7 @@ const projects = [
     year: "2025",
     link: "https://www.code-across.com/"
   },
+  
 ]
 
 export function Projects() {
@@ -46,7 +61,8 @@ export function Projects() {
           {projects.map((project, index) => (
             <a
               key={project.title}
-              href="#"
+              href={project.link}
+              target="_blank"
               className="group block py-8 border-t border-border hover:bg-secondary/30 transition-colors -mx-6 px-6"
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">

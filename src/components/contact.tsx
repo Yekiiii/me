@@ -27,7 +27,7 @@ export function Contact() {
                   No pressure — if you’d like to simply have a chat or explore an idea together, I’m here.
             </p>
             <a
-              href="/CV2.pdf"
+              href="/Kaartikey Nair - CV.pdf"
               download="Kaartikey_Nair_CV.pdf"
               className="inline-flex items-center gap-2 px-4 py-2 border border-gold text-gold hover:bg-gold hover:text-black transition-colors rounded-md text-sm"
             >
