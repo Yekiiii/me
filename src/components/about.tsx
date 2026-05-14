@@ -1,54 +1,74 @@
+import { motion } from "framer-motion"
+
+const frontendSkills = ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Figma to Code"]
+const backendSkills = ["Node.js", "Express", "PostgreSQL", "MongoDB", "MySQL", "REST + GraphQL"]
+const workflowSkills = ["Product Discovery", "Rapid Prototyping", "Performance Tuning", "Scalable UI Systems"]
+
+type SkillStackProps = {
+  title: string
+  items: string[]
+}
+
+function SkillStack({ title, items }: SkillStackProps) {
+  return (
+    <div className="glass-card rounded-2xl p-5">
+      <h3 className="text-xs font-semibold uppercase tracking-[0.25em] text-foreground/55">{title}</h3>
+      <ul className="mt-4 grid gap-2">
+        {items.map((item) => (
+          <li key={item} className="rounded-lg border border-border bg-background/58 px-3 py-2 text-sm text-foreground/76">
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 export function About() {
   return (
-    <section id="about" className="py-32 px-6 md:px-12 lg:px-24 bg-secondary/20">
-      <div className="max-w-5xl mx-auto">
-        <h2 className="text-sm font-mono text-gold mb-16 tracking-widest uppercase">About</h2>
+    <section id="about" className="relative py-24 md:py-32">
+      <div className="section-shell">
+        <p className="section-title">About</p>
+        <h2 className="section-heading max-w-3xl">A product-minded engineer with strong design instincts.</h2>
 
-        <div className="grid md:grid-cols-2 gap-16">
-          <div>
-            <p className="text-lg md:text-xl text-foreground leading-relaxed mb-6">
-              I&apos;m a web developer passionate about creating seamless digital experiences that bridge functionality
-              and aesthetics.
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1.12fr_0.88fr]">
+          <motion.article
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="glass-card-strong relative overflow-hidden p-6 md:p-8"
+          >
+            <div className="pointer-events-none absolute -top-20 right-[-2rem] h-52 w-52 rounded-full bg-foreground/4 blur-3xl" />
+
+            <p className="relative z-10 text-base leading-relaxed text-foreground/82 md:text-lg">
+              I enjoy turning loose ideas into polished products. My approach blends full-stack engineering with UX thinking
+              so the final output is not only functional, but also feels effortless to use.
             </p>
-            <p className="text-muted-foreground leading-relaxed">
-              With expertise in modern JavaScript frameworks and a keen eye for design, I build applications that users
-              love to interact with. Currently focused on full-stack development with Next.js and exploring the
-              intersection of design and engineering.
+            <p className="relative z-10 mt-5 text-sm leading-relaxed text-foreground/68 md:text-base">
+              Beyond shipping features, I care deeply about rhythm, readability, and interaction quality. The goal is always
+              the same: software that works hard and feels smooth.
             </p>
-          </div>
 
-          <div className="space-y-12">
-            <div className="grid grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xs font-mono text-gold mb-6 tracking-widest uppercase">Frontend</h3>
-                <ul className="space-y-3">
-                  {["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"].map((tech) => (
-                    <li key={tech} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                      <span className="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-gold transition-colors" />
-                      {tech}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div>
-                <h3 className="text-xs font-mono text-gold mb-6 tracking-widest uppercase">Backend</h3>
-                <ul className="space-y-3">
-                  {["Node.js", "PostgreSQL", "Prisma", "Supabase", "Express"].map((tech) => (
-                    <li key={tech} className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group">
-                      <span className="w-1.5 h-1.5 rounded-full bg-border group-hover:bg-gold transition-colors" />
-                      {tech}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            <div className="relative z-10 mt-8 grid gap-3 sm:grid-cols-2">
+              {workflowSkills.map((skill) => (
+                <div key={skill} className="rounded-xl border border-border bg-background/58 px-4 py-3 text-sm text-foreground/78">
+                  {skill}
+                </div>
+              ))}
             </div>
+          </motion.article>
 
-            <div>
-              <h3 className="text-xs font-mono text-gold mb-4 tracking-widest uppercase">Currently</h3>
-              <p className="text-foreground">Open to freelance opportunities and collaborations</p>
-            </div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="space-y-4"
+          >
+            <SkillStack title="Frontend" items={frontendSkills} />
+            <SkillStack title="Backend" items={backendSkills} />
+          </motion.div>
         </div>
       </div>
     </section>

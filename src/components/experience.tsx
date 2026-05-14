@@ -1,72 +1,79 @@
-import { ArrowUpRight } from "lucide-react"
+import { motion } from "framer-motion"
 
 const experiences = [
   {
     company: "PenguinApps",
     role: "Full Stack Developer",
-    period: "August 2024 - Present",
+    period: "Aug 2024 - Present",
     description: [
-      "Built and maintained end-to-end web & mobile applications using MERN stack, React Native, MySQL, and AWS.",
-      "Designed UI/UX in Figma and implemented production-ready interfaces in React and React Native.",
-      "Developed CMS dashboards and Android apps deployed on the Play Store; delivered Shopify Liquid themes, apps, and GraphQL integrations for third-party marketplaces.",
-      "Worked directly with clients to translate business requirements into technical solutions and ensure timely delivery."
-    ]
+      "Built and maintained end-to-end web and mobile applications using the MERN stack, React Native, MySQL, and AWS.",
+      "Owned UI/UX in Figma and translated designs into polished production interfaces.",
+      "Delivered CMS dashboards and Android apps for production release while handling Shopify Liquid and GraphQL integrations.",
+      "Partnered with clients directly to map business requirements into practical technical solutions.",
+    ],
   },
   {
     company: "XIRCLS - 360° Martech Stack & Decentralized Collaborative Marketing Network",
     role: "Frontend Developer Intern",
-    period: "March 2024 - July 2024", 
+    period: "Mar 2024 - Jul 2024",
     description: [
-      "Worked on multiple projects using technologies like ReactJS, Bootstrap, GraphQL, Shopify and Django.",
-      "Worked on the entirety of the Shopify CRM which Included making a few client-sided and server sided filters, various forms for product/user CRUD operations with clean UI using both GraphQL and REST.",
-      "Worked on a Flowchart Maker for WhatsApp Automation using ReactFlow."
-    ]
+      "Contributed across multiple React, Bootstrap, GraphQL, Shopify, and Django projects.",
+      "Built key parts of the Shopify CRM including filters, CRUD forms, and cleaner admin UI flows.",
+      "Implemented a visual WhatsApp automation flowchart builder with React Flow.",
+    ],
   },
   {
     company: "Business Web Solutions",
     role: "Full Stack Developer Intern",
-    period: "October 2023 - December 2023",
+    period: "Oct 2023 - Dec 2023",
     description: [
-      "Worked on multiple projects using technologies like React, HTML/CSS/JS, Bootstrap, jQuery, React, Django, PostgreSQL etc.",
-      "Worked on a social media platform using Django PostgreSQL, React."
-    ]
-  }
+      "Worked across projects using React, Django, PostgreSQL, and classic web stacks.",
+      "Helped build and ship social platform features on a Django + React architecture.",
+    ],
+  },
 ]
 
 export function Experience() {
   return (
-    <section id="experience" className="relative py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 z-0 h-full w-full bg-background">
-         <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px)] bg-[size:40px_100%]"></div>
-         <div className="absolute right-0 top-1/2 translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle,var(--gold),transparent_70%)] opacity-10 blur-[100px]"></div>
-      </div>
-      <div className="relative z-10 max-w-5xl mx-auto">
-        <h2 className="text-sm font-mono text-gold mb-16 tracking-widest uppercase">Experience</h2>
+    <section id="experience" className="relative py-24 md:py-32">
+      <div className="section-shell">
+        <p className="section-title">Experience</p>
+        <h2 className="section-heading max-w-3xl">Where I learned speed, ownership, and product thinking.</h2>
 
-        <div className="space-y-12">
+        <div className="relative mt-12 space-y-5 md:space-y-6">
+          <div className="pointer-events-none absolute bottom-4 left-5 top-5 hidden w-px bg-border md:block" />
+
           {experiences.map((exp, index) => (
-            <div
-              key={index}
-              className="group relative pl-8 border-l border-border hover:border-gold transition-colors"
+            <motion.article
+              key={exp.company}
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1], delay: index * 0.05 }}
+              className="glass-card-strong relative overflow-hidden p-5 md:p-6 md:pl-14"
             >
-              <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 rounded-full bg-border group-hover:bg-gold transition-colors" />
-              
-              <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 mb-4">
-                <h3 className="text-2xl font-light text-foreground">{exp.company}</h3>
-                <span className="font-mono text-sm text-gold">{exp.period}</span>
+              <div className="pointer-events-none absolute right-0 top-0 h-44 w-44 rounded-full bg-foreground/3 blur-3xl" />
+              <div className="absolute left-[1.08rem] top-8 hidden h-3 w-3 rounded-full border border-border bg-foreground/40 md:block" />
+
+              <div className="relative z-10 flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <h3 className="font-display text-2xl font-semibold text-foreground md:text-[1.7rem]">{exp.company}</h3>
+                  <p className="mt-1 text-sm font-semibold uppercase tracking-[0.16em] text-foreground/55">{exp.role}</p>
+                </div>
+                <span className="w-fit rounded-full border border-border bg-background/58 px-3 py-1 text-xs font-medium text-foreground/70">
+                  {exp.period}
+                </span>
               </div>
-              
-              <p className="text-lg text-muted-foreground mb-4">{exp.role}</p>
-              
-              <ul className="space-y-2">
-                {exp.description.map((item, i) => (
-                  <li key={i} className="text-muted-foreground/80 leading-relaxed text-sm">
-                    • {item}
+
+              <ul className="relative z-10 mt-5 space-y-2.5">
+                {exp.description.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm leading-relaxed text-foreground/76">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-foreground/35" />
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.article>
           ))}
         </div>
       </div>

@@ -1,10 +1,15 @@
 export function Footer() {
+  const year = new Date().getFullYear()
+
   return (
-    <footer className="py-8 px-6 md:px-12 lg:px-24 border-t border-border">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-muted-foreground">Made by me!</p>
-        <p className="text-sm text-muted-foreground font-mono">
-          Built with <span className="text-gold">React.js</span> & <span className="text-gold">Tailwind</span>
+    <footer className="section-shell pb-8 pt-2 md:pt-4">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 border-t border-border pt-6 md:flex-row">
+        <p className="text-sm text-foreground/58">
+          © {year} Kaartikey Nair
+        </p>
+        <p className="text-sm text-foreground/58 font-mono">
+          Built with <span className="text-foreground/80">React</span> + <span className="text-foreground/80">Tailwind</span> +{" "}
+          <span className="text-foreground/80">Framer Motion</span>
         </p>
       </div>
     </footer>

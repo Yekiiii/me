@@ -1,59 +1,92 @@
-import { ArrowUpRight, Download } from "lucide-react"
+import { motion } from "framer-motion"
+import { ArrowUpRight, Download, Github, Linkedin, Mail, Twitter } from "lucide-react"
+import type { LucideIcon } from "lucide-react"
 
-const socials = [
-  { label: "GitHub", href: "https://github.com/Yekiiii" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/kaartikey-nair/" },
-  { label: "Twitter", href: "https://x.com/kaartikeyx" },
-  { label: "Email", href: "mailto:kaartikey20@gmail.com" },
+type Social = {
+  label: string
+  href: string
+  icon: LucideIcon
+}
+
+const socials: Social[] = [
+  { label: "GitHub", href: "https://github.com/Yekiiii", icon: Github },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/kaartikey-nair/", icon: Linkedin },
+  { label: "Twitter / X", href: "https://x.com/kaartikeyx", icon: Twitter },
+  { label: "Email", href: "mailto:kaartikey20@gmail.com", icon: Mail },
 ]
 
 export function Contact() {
   return (
-    <section id="contact" className="relative py-32 px-6 md:px-12 lg:px-24 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 z-0 h-full w-full bg-background">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 h-[500px] w-[1000px] rounded-full bg-[radial-gradient(circle,var(--gold),transparent_70%)] opacity-15 blur-[100px]"></div>
-      </div>
-      <div className="relative z-10 max-w-5xl mx-auto">
-        <h2 className="text-sm font-mono text-gold mb-16 tracking-widest uppercase">Contact</h2>
+    <section id="contact" className="relative pb-16 pt-24 md:pt-32">
+      <div className="section-shell">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="glass-card-strong relative overflow-hidden p-6 md:p-9"
+        >
+          <div className="pointer-events-none absolute -left-12 -top-16 h-56 w-56 rounded-full bg-foreground/4 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-16 right-0 h-56 w-56 rounded-full bg-foreground/3 blur-3xl" />
 
-        <div className="grid md:grid-cols-2 gap-16">
-          <div>
-            <h3 className="text-4xl md:text-5xl font-light text-foreground mb-6 text-balance">
-              Let's Connect
-            </h3>
-            <p className="text-muted-foreground leading-relaxed mb-8">
-                  No pressure — if you’d like to simply have a chat or explore an idea together, I’m here.
-            </p>
-            <a
-              href="/Kaartikey Nair - CV.pdf"
-              download="Kaartikey_Nair_CV.pdf"
-              className="inline-flex items-center gap-2 px-4 py-2 border border-gold text-gold hover:bg-gold hover:text-black transition-colors rounded-md text-sm"
-            >
-              <Download className="w-4 h-4" />
-              Download Resume
-            </a>
-          </div>
+          <div className="relative z-10 grid gap-8 lg:grid-cols-[1.14fr_0.86fr] lg:items-end">
+            <div>
+              <p className="section-title">Contact</p>
+              <h2 className="mt-4 font-display text-4xl font-semibold leading-tight text-foreground md:text-5xl">
+                Let&apos;s build something insanely good together.
+              </h2>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-foreground/72 md:text-base">
+                Open to freelance projects, product collaborations, and teams that care about craft. If you have an idea,
+                let&apos;s shape it into something users actually love.
+              </p>
 
-          <div className="flex flex-col justify-end">
-            <ul className="space-y-4">
-              {socials.map((social) => (
-                <li key={social.label}>
-                  <a
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a href="mailto:kaartikey20@gmail.com" className="btn-primary">
+                  <Mail className="h-4 w-4" />
+                  Send an Email
+                </a>
+                <a
+                  href="/Kaartikey Nair - CV.pdf"
+                  download="Kaartikey_Nair_CV.pdf"
+                  className="btn-ghost"
+                >
+                  <Download className="h-4 w-4" />
+                  Download Resume
+                </a>
+              </div>
+            </div>
+
+            <div className="grid gap-3">
+              {socials.map((social, index) => {
+                const Icon = social.icon
+                return (
+                  <motion.a
+                    key={social.label}
                     href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between py-3 border-b border-border hover:border-gold transition-colors"
+                    target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+                    rel={social.href.startsWith("mailto:") ? undefined : "noreferrer"}
+                    initial={{ opacity: 0, y: 14 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.55, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                    whileHover={{ x: 3 }}
+                    className="group rounded-2xl border border-border bg-background/60 px-4 py-3"
                   >
-                    <span className="text-foreground group-hover:text-gold transition-colors">{social.label}</span>
-                    <ArrowUpRight className="w-4 h-4 text-muted-foreground group-hover:text-gold transition-colors" />
-                  </a>
-                </li>
-              ))}
-            </ul>
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <span className="rounded-lg border border-border bg-background/66 p-2 text-foreground/76">
+                          <Icon className="h-4 w-4" />
+                        </span>
+                        <span className="text-sm font-semibold text-foreground/88">{social.label}</span>
+                      </div>
+                      <ArrowUpRight className="h-4 w-4 text-foreground/54 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+                    </div>
+                  </motion.a>
+                )
+              })}
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )
