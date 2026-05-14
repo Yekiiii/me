@@ -40,25 +40,52 @@ export function Navigation() {
       return
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const topEntry = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
+    let rafId = 0
 
-        if (topEntry) {
-          setActiveSection(topEntry.target.id)
+    const computeActiveSection = () => {
+      const marker = 120
+      let current = sections[0].id
+
+      for (const section of sections) {
+        const top = section.getBoundingClientRect().top
+        if (top <= marker) {
+          current = section.id
+        } else {
+          break
         }
-      },
-      {
-        rootMargin: "-38% 0px -42% 0px",
-        threshold: [0.15, 0.35, 0.55, 0.75],
-      },
-    )
+      }
 
-    sections.forEach((section) => observer.observe(section))
+      setActiveSection(current)
+      rafId = 0
+    }
 
-    return () => observer.disconnect()
+    const onScroll = () => {
+      if (!rafId) {
+        rafId = window.requestAnimationFrame(computeActiveSection)
+      }
+    }
+
+    const onHashChange = () => {
+      const hash = window.location.hash.replace("#", "")
+      if (hash && sectionIds.includes(hash)) {
+        setActiveSection(hash)
+      }
+    }
+
+    computeActiveSection()
+    onHashChange()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    window.addEventListener("hashchange", onHashChange)
+
+    return () => {
+      if (rafId) {
+        window.cancelAnimationFrame(rafId)
+      }
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+      window.removeEventListener("hashchange", onHashChange)
+    }
   }, [])
 
   return (
@@ -96,6 +123,7 @@ export function Navigation() {
                   <li key={link.href}>
                     <a
                       href={link.href}
+                      onClick={() => setActiveSection(sectionId)}
                       className={cn(
                         "relative rounded-full px-3.5 py-2 text-xs font-medium tracking-wide text-foreground/70 transition-colors md:text-sm",
                         isActive ? "text-foreground" : "hover:text-foreground",
