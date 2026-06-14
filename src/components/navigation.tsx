@@ -1,8 +1,22 @@
 "use client"
 
 import { motion, useScroll, useSpring } from "framer-motion"
+import { Moon, Sun } from "lucide-react"
 import { useEffect, useState } from "react"
 import { cn } from "../lib/utils"
+
+function getInitialTheme() {
+  if (typeof window === "undefined") {
+    return true
+  }
+
+  return localStorage.getItem("theme") !== "light"
+}
+
+function applyTheme(isDark: boolean) {
+  document.documentElement.classList.toggle("dark", isDark)
+  localStorage.setItem("theme", isDark ? "dark" : "light")
+}
 
 const links = [
   { href: "#work", label: "Work" },
@@ -16,6 +30,7 @@ const sectionIds = links.map((link) => link.href.replace("#", ""))
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState(sectionIds[0])
+  const [isDark, setIsDark] = useState(getInitialTheme)
 
   const { scrollYProgress } = useScroll()
   const smoothProgress = useSpring(scrollYProgress, {
@@ -106,7 +121,7 @@ export function Navigation() {
             className={cn(
               "pointer-events-auto mx-auto flex items-center justify-between rounded-full border px-4 py-3 transition-all duration-300 md:px-5",
               scrolled
-                ? "border-border bg-background/76 shadow-[0_14px_30px_-24px_rgba(74,57,35,0.38)] backdrop-blur-md"
+                ? "border-border bg-background/76 shadow-[0_14px_30px_-24px_rgba(var(--shadow-color),var(--nav-shadow-opacity))] backdrop-blur-md"
                 : "border-border/80 bg-background/58 backdrop-blur-sm",
             )}
           >
@@ -143,12 +158,27 @@ export function Navigation() {
               })}
             </ul>
 
-            <a
-              href="#contact"
-              className="hidden rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background transition-all duration-300 hover:bg-foreground/90 md:inline-flex"
-            >
-              Let&apos;s Build
-            </a>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const next = !isDark
+                  setIsDark(next)
+                  applyTheme(next)
+                }}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background/60 text-foreground/72 transition-colors hover:text-foreground"
+              >
+                {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </button>
+
+              <a
+                href="#contact"
+                className="hidden rounded-full bg-foreground px-4 py-2 text-xs font-semibold text-background transition-all duration-300 hover:bg-foreground/90 md:inline-flex"
+              >
+                Let&apos;s Build
+              </a>
+            </div>
           </motion.nav>
         </div>
       </header>

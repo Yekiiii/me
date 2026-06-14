@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script>
+      if (localStorage.getItem("theme") !== "light") {
+        document.documentElement.classList.add("dark")
+      }
+    </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="/portfavico.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

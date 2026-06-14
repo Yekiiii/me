@@ -25,7 +25,7 @@ export function NameAnimation() {
     <div className="relative">
       <h1 className="font-display text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl md:text-8xl">
         <span className="block text-foreground">Kaartikey Nair</span>
-        <span className="gradient-text mt-2 block">Building products that feel alive.</span>
+        <span className="gradient-text mt-2 block">Shipping ideas into reality.</span>
       </h1>
 
       <div className="mt-6 h-10">

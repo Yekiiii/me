@@ -20,6 +20,94 @@
   --border: oklch(0.74 0.02 82 / 0.56);
   --ring: oklch(0.58 0.05 60 / 0.3);
   --radius: 1rem;
+  --shadow-color: 74, 57, 35;
+  --shadow-opacity: 0.24;
+  --shadow-strong-opacity: 0.26;
+  --nav-shadow-opacity: 0.38;
+  --card-highlight: rgba(255, 255, 255, 0.2);
+  --noise-color: rgba(61, 45, 32, 0.14);
+  --hairline: rgba(60, 46, 33, 0.08);
+}
+
+.dark {
+  /*
+   * Dark background swatches — uncomment ONE `--background` line to try it.
+   * All sit near #1f1f1f; B–F add a warm brown cast that matches the light theme.
+   *
+   *   A  #1f1f1f  neutral gray-black (reference, least warm)
+   *   B  #211e1a  espresso brown-black ← active
+   *   C  #231f1b  dark walnut (noticeably warmer)
+   *   D  #1e1b17  deep mocha (darker + browner)
+   *   E  #252019  warm charcoal (slightly lifted)
+   *   F  #2a231c  roasted umber (strongest brown tint)
+   */
+  /* --background: #211e1a; */
+  --background: #1f1f1f;
+  /* --background: #231f1b; */
+  /* --background: #1e1b17; */
+  /* --background: #252019; */
+  /* --background: #2a231c; */
+
+  /*
+   * Gradient bottom (`body` fades background → background-soft).
+   * Pair with the active background above:
+   *
+   *   A  #191919    B  #1a1815    C  #1c1814
+   *   D  #171412    E  #1e1a15    F  #221c16
+   */
+  /* --background-soft: #1a1815; */
+  --background-soft: #191919; /* pairs with A */
+  /* --background-soft: #1c1814; */ /* pairs with C */
+  /* --background-soft: #171412; */ /* pairs with D */
+  /* --background-soft: #1e1a15; */ /* pairs with E */
+  /* --background-soft: #221c16; */ /* pairs with F */
+
+  /*
+   * Card surfaces — slightly above the page bg so glass panels read clearly.
+   *
+   *   A  #282828 / #2e2e2e    B  #2a2520 / #302a24
+   *   C  #2c2620 / #332c25    D  #26211c / #2c261f
+   *   E  #2e2820 / #353028    F  #332b22 / #3a3128
+   */
+  --card: rgb(42 37 32 / 0.72);
+  /* --card-strong: rgb(48 42 36 / 0.82); */
+  --card: rgb(40 40 40 / 0.72); --card-strong: rgb(46 46 46 / 0.82); /* A */
+  /* --card: rgb(44 38 32 / 0.72); --card-strong: rgb(51 44 37 / 0.82); */ /* C */
+  /* --card: rgb(38 33 28 / 0.72); --card-strong: rgb(44 38 32 / 0.82); */ /* D */
+  /* --card: rgb(46 40 32 / 0.72); --card-strong: rgb(53 48 40 / 0.82); */ /* E */
+  /* --card: rgb(51 43 34 / 0.72); --card-strong: rgb(58 49 40 / 0.82); */ /* F */
+
+  --foreground: oklch(0.962 0.012 86);
+  --muted-foreground: oklch(0.74 0.014 86);
+  --primary: oklch(0.68 0.05 55);
+  --primary-strong: oklch(0.74 0.045 55);
+  --accent: oklch(0.72 0.04 70);
+  --orange: oklch(0.7 0.07 58);
+  --orange-muted: oklch(0.62 0.045 64);
+  --secondary: rgb(48 42 36 / 0.58);
+  --muted: rgb(52 46 40 / 0.54);
+
+  /*
+   * Borders — warm hairlines that sit on brown-blacks without looking muddy.
+   *
+   *   A  #3a3a3a    B  #3d3630    C  #403830
+   *   D  #38312a    E  #443c34    F  #4a4036
+   */
+  --border: rgb(61 54 48 / 0.56);
+  /* --border: rgb(58 58 58 / 0.56); */ /* A */
+  /* --border: rgb(64 56 48 / 0.56); */ /* C */
+  /* --border: rgb(56 49 42 / 0.56); */ /* D */
+  /* --border: rgb(68 60 52 / 0.56); */ /* E */
+  /* --border: rgb(74 64 54 / 0.56); */ /* F */
+
+  --ring: oklch(0.62 0.05 60 / 0.35);
+  --shadow-color: 0, 0, 0;
+  --shadow-opacity: 0.42;
+  --shadow-strong-opacity: 0.48;
+  --nav-shadow-opacity: 0.55;
+  --card-highlight: rgba(255, 255, 255, 0.06);
+  --noise-color: rgba(255, 255, 255, 0.07);
+  --hairline: rgba(255, 255, 255, 0.08);
 }
 
 @theme inline {
@@ -83,7 +171,7 @@
     pointer-events: none;
     z-index: -1;
     opacity: 0.11;
-    background-image: radial-gradient(rgba(61, 45, 32, 0.14) 0.5px, transparent 0.6px);
+    background-image: radial-gradient(var(--noise-color) 0.5px, transparent 0.6px);
     background-size: 3px 3px;
   }
 
@@ -101,6 +189,10 @@
     @apply text-xs font-semibold uppercase tracking-[0.28em] text-foreground/55;
   }
 
+  .dark .section-title {
+    @apply text-foreground/68;
+  }
+
   .section-heading {
     @apply mt-4 font-display text-3xl font-semibold leading-tight text-foreground md:text-5xl;
   }
@@ -108,15 +200,15 @@
   .glass-card {
     @apply rounded-[1.3rem] border border-border bg-card backdrop-blur-sm;
     box-shadow:
-      0 12px 30px -22px rgba(74, 57, 35, 0.24),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      0 12px 30px -22px rgba(var(--shadow-color), var(--shadow-opacity)),
+      inset 0 1px 0 var(--card-highlight);
   }
 
   .glass-card-strong {
     @apply rounded-[1.4rem] border border-border bg-card-strong backdrop-blur-md;
     box-shadow:
-      0 18px 42px -26px rgba(74, 57, 35, 0.26),
-      inset 0 1px 0 rgba(255, 255, 255, 0.24);
+      0 18px 42px -26px rgba(var(--shadow-color), var(--shadow-strong-opacity)),
+      inset 0 1px 0 var(--card-highlight);
   }
 
   .pill {
@@ -144,7 +236,16 @@
   }
 
   .hairline-border {
-    box-shadow: inset 0 0 0 1px rgba(60, 46, 33, 0.08);
+    box-shadow: inset 0 0 0 1px var(--hairline);
+  }
+
+  .dark [class*="text-foreground/5"] {
+    color: color-mix(in oklab, var(--foreground) 70%, transparent);
+  }
+
+  .dark [class*="text-foreground/62"],
+  .dark [class*="text-foreground/70"] {
+    color: color-mix(in oklab, var(--foreground) 78%, transparent);
   }
 }
 
